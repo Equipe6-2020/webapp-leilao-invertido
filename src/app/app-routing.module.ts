@@ -6,6 +6,8 @@ import { RegisterComponent } from './register/register.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './dashboard/home/home.component';
+import { WishlistComponent } from './dashboard/wishlist/wishlist.component';
+import { WishlistCreateComponent } from './dashboard/wishlist/wishlist-create/wishlist-create.component';
 
 const routes: Routes = [
   {
@@ -27,6 +29,16 @@ const routes: Routes = [
     children: [
       {
         path: '', component: HomeComponent
+      },
+      {
+        path: 'wishlist', children: [
+          {
+            path: '', component: WishlistComponent
+          },
+          {
+            path: 'create', component: WishlistCreateComponent   
+          }
+        ]
       }
     ]
   }

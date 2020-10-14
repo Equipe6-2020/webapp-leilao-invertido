@@ -1,13 +1,13 @@
 <div class="register-content">
+    <h1>Cadastro</h1>
     <mat-card>
-        <mat-card-title>Cadastro</mat-card-title>
         <mat-card-content>
             <mat-tab-group>
                 <mat-tab label="Pessoa física">
                     <form [formGroup]="pessoaFisicaRegisterForm" (ngSubmit)="submitPessoaFisicaRegisterForm()">
                         <p>
                             <mat-form-field>
-                            <input type="text" matInput placeholder="E-mail" formControlName="email">
+                            <input type="email" matInput placeholder="E-mail" formControlName="email">
                             </mat-form-field>
                         </p>
                 

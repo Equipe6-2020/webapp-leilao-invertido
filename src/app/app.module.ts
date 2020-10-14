@@ -8,6 +8,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
 import { HeaderComponent } from './header/header.component';
 import { RegisterComponent } from './register/register.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { HomeComponent } from './dashboard/home/home.component';
+import { WishlistComponent } from './dashboard/wishlist/wishlist.component';
+import { WishlistCreateComponent } from './dashboard/wishlist/wishlist-create/wishlist-create.component';
 
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -20,8 +24,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatTabsModule } from '@angular/material/tabs';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { HomeComponent } from './dashboard/home/home.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatChipsModule } from '@angular/material/chips';
 
 
 @NgModule({
@@ -31,7 +36,9 @@ import { HomeComponent } from './dashboard/home/home.component';
     HeaderComponent,
     RegisterComponent,
     DashboardComponent,
-    HomeComponent
+    HomeComponent,
+    WishlistComponent,
+    WishlistCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +56,10 @@ import { HomeComponent } from './dashboard/home/home.component';
     MatFormFieldModule,
     MatInputModule,
     MatRadioModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSelectModule,
+    MatGridListModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
