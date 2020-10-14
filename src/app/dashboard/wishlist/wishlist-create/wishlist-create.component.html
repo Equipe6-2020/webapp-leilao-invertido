@@ -4,37 +4,37 @@
         <mat-card-title></mat-card-title>
         <mat-card-content>
             <form [formGroup]="form" (ngSubmit)="submit()">
-            <p>
-                <mat-form-field>
-                    <input type="text" matInput placeholder="Título" formControlName="title">
-                </mat-form-field>
-            </p>
-    
-            <p>
-                <mat-form-field>
-                    <textarea matInput placeholder="Descreve os itens que você gostaria de receber propostas" formControlName="description"></textarea>
-                </mat-form-field>
-            </p>
+                <p>
+                    <mat-form-field>
+                        <input type="text" matInput placeholder="Título" formControlName="title">
+                    </mat-form-field>
+                </p>
+        
+                <p>
+                    <mat-form-field>
+                        <textarea matInput placeholder="Descreve os itens que você gostaria de receber propostas" formControlName="description"></textarea>
+                    </mat-form-field>
+                </p>
 
-            <p>
-                <mat-form-field appearance="fill">
-                    <mat-label>Categoria</mat-label>
-                    <mat-select formControlName="subCategoryId">
-                        <mat-option *ngFor="let subCategory of subCategories" [value]="subCategory.id">
-                        {{subCategory.description}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </p>
-    
-            <p *ngIf="error" class="error">
-                {{ error }}
-            </p>
-    
-            <div class="button">
-                <button type="submit" mat-button>Criar</button>
-            </div>
-    
+                <p>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Categoria</mat-label>
+                        <mat-select formControlName="subCategoryId">
+                            <mat-option *ngFor="let subCategory of subCategories" [value]="subCategory.id">
+                            {{subCategory.description}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </p>
+        
+                <p *ngIf="error" class="error">
+                    {{ error }}
+                </p>
+        
+                <div class="button">
+                    <button type="submit" mat-button>Criar</button>
+                </div>
+        
             </form>
         </mat-card-content>
     </mat-card>

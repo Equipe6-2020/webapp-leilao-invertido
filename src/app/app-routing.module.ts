@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './dashboard/home/home.component';
 import { WishlistComponent } from './dashboard/wishlist/wishlist.component';
 import { WishlistCreateComponent } from './dashboard/wishlist/wishlist-create/wishlist-create.component';
+import { DetailComponent } from './dashboard/wishlist/detail/detail.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,9 @@ const routes: Routes = [
           },
           {
             path: 'create', component: WishlistCreateComponent   
+          },
+          {
+            path: ':id', component: DetailComponent
           }
         ]
       }

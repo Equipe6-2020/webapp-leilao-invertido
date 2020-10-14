@@ -12,6 +12,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HomeComponent } from './dashboard/home/home.component';
 import { WishlistComponent } from './dashboard/wishlist/wishlist.component';
 import { WishlistCreateComponent } from './dashboard/wishlist/wishlist-create/wishlist-create.component';
+import { DetailComponent } from './dashboard/wishlist/detail/detail.component';
 
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -28,6 +29,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +41,8 @@ import { MatChipsModule } from '@angular/material/chips';
     DashboardComponent,
     HomeComponent,
     WishlistComponent,
-    WishlistCreateComponent
+    WishlistCreateComponent,
+    DetailComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +63,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatTabsModule,
     MatSelectModule,
     MatGridListModule,
-    MatChipsModule
+    MatChipsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
