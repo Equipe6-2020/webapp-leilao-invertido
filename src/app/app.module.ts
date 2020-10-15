@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -30,6 +31,11 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import {ConfigService} from './config/config.service';
+import {NaturalPersonService} from './model/natural-person/natural-person.service';
+import {BusinessService} from './model/business/business.service';
+import {SubcategoryService} from './model/subcategory/subcategory.service';
 
 
 @NgModule({
@@ -64,9 +70,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatSelectModule,
     MatGridListModule,
     MatChipsModule,
-    NgbModule
+    NgbModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    NaturalPersonService,
+    ConfigService,
+    SubcategoryService,
+    BusinessService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -7,34 +7,105 @@
                     <form [formGroup]="pessoaFisicaRegisterForm" (ngSubmit)="submitPessoaFisicaRegisterForm()">
                         <p>
                             <mat-form-field>
-                            <input type="email" matInput placeholder="E-mail" formControlName="email">
+                                <input type="email" matInput placeholder="E-mail" formControlName="email">
+
+                                <mat-error *ngIf="pessoaFisicaRegisterForm.get('email').hasError('required')">
+                                    Este campo é <strong>obrigatório.</strong>
+                                </mat-error>
+
+                                <mat-error *ngIf="pessoaFisicaRegisterForm.get('email').hasError('email')
+                                && !pessoaFisicaRegisterForm.get('email').hasError('required')">
+                                    Digite um e-mail válido.
+                                </mat-error>
                             </mat-form-field>
                         </p>
                 
                         <p>
                             <mat-form-field>
-                                <input type="text" matInput placeholder="Nome social" formControlName="socialName">
+                                <input type="text" matInput placeholder="CPF" formControlName="socialNumber">
+
+                                <mat-error *ngIf="pessoaFisicaRegisterForm.get('socialNumber').hasError('required')">
+                                    Este campo é <strong>obrigatório.</strong>
+                                </mat-error>
                             </mat-form-field>
                         </p>
 
                         <p>
                             <mat-form-field>
                                 <input type="text" matInput placeholder="Primeiro nome" formControlName="name">
+
+                                <mat-error *ngIf="pessoaFisicaRegisterForm.get('name').hasError('required')">
+                                    Este campo é <strong>obrigatório.</strong>
+                                </mat-error>
                             </mat-form-field>
                         </p>
 
                         <p>
                             <mat-form-field>
-                                <input type="text" matInput placeholder="Último nome" formControlName="name">
+                                <input type="text" matInput placeholder="Último nome" formControlName="lastName">
+
+                                <mat-error *ngIf="pessoaFisicaRegisterForm.get('lastName').hasError('required')">
+                                    Este campo é <strong>obrigatório.</strong>
+                                </mat-error>
                             </mat-form-field>
                         </p>
-                
-                        <p *ngIf="error" class="error">
-                            {{ error }}
+
+                        <p>
+                            <mat-form-field>
+                                <input type="text" matInput placeholder="Telefone" formControlName="phone">
+
+                                <mat-error *ngIf="pessoaFisicaRegisterForm.get('phone').hasError('required')">
+                                    Este campo é <strong>obrigatório.</strong>
+                                </mat-error>
+                            </mat-form-field>
                         </p>
+
+                        <hr>
+                        
+                        <div formGroupName="address">
+                            <p>
+                                <mat-form-field>
+                                    <input type="text" matInput placeholder="Endereço" value="address" formControlName="street">
+
+                                    <mat-error *ngIf="pessoaFisicaRegisterForm.get('address').get('street').hasError('required')">
+                                        Este campo é <strong>obrigatório.</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </p>
+    
+                            <p>
+                                <mat-form-field>
+                                    <input type="text" matInput placeholder="CEP" value="address" formControlName="zipcode">
+
+                                    <mat-error *ngIf="pessoaFisicaRegisterForm.get('address').get('zipcode').hasError('required')">
+                                        Este campo é <strong>obrigatório.</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </p>
+    
+                            <p>
+                                <mat-form-field>
+                                    <input type="text" matInput placeholder="Bairro" value="address" formControlName="neighborhood">
+
+                                    <mat-error *ngIf="pessoaFisicaRegisterForm.get('address').get('neighborhood').hasError('required')">
+                                        Este campo é <strong>obrigatório.</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </p>
+                        </div>
+                        
+
+                        <div *ngIf="pessoaFisicaCreated" class="success-message">
+                            <hr>
+
+                            <p>
+                                Seu usário foi criado com successo!
+                                Por favor verifique sua caixa de e-mail para obter sua senha e acessar o sistema.
+                            </p>
+                        </div>
                 
-                        <div class="button">
-                            <button type="submit" mat-button>Cadastrar</button>
+                        <div class="button" *ngIf="!pessoaFisicaCreated">
+                            <button type="submit" mat-button [disabled]="!pessoaFisicaRegisterForm.valid">Cadastrar</button>
                         </div>
                     </form>
                 </mat-tab>
@@ -42,28 +113,103 @@
                     <form [formGroup]="pessoaJuridicaRegisterForm" (ngSubmit)="submitPessoaJuridicaRegisterForm()">
                         <p>
                             <mat-form-field>
-                            <input type="text" matInput placeholder="E-mail" formControlName="email">
+                                <input type="text" matInput placeholder="E-mail" formControlName="email">
+
+                                <mat-error *ngIf="pessoaJuridicaRegisterForm.get('email').hasError('required')">
+                                    Este campo é <strong>obrigatório.</strong>
+                                </mat-error>
+
+                                <mat-error *ngIf="pessoaJuridicaRegisterForm.get('email').hasError('email')
+                                && !pessoaJuridicaRegisterForm.get('email').hasError('required')">
+                                    Digite um e-mail válido.
+                                </mat-error>
                             </mat-form-field>
                         </p>
                 
                         <p>
                             <mat-form-field>
                                 <input type="text" matInput placeholder="CNPJ" formControlName="registeredNumber">
+
+                                <mat-error *ngIf="pessoaJuridicaRegisterForm.get('registeredNumber').hasError('required')">
+                                    Este campo é <strong>obrigatório.</strong>
+                                </mat-error>
                             </mat-form-field>
                         </p>
 
                         <p>
                             <mat-form-field>
                                 <input type="text" matInput placeholder="Nome fantasia" formControlName="tradeName">
+
+                                <mat-error *ngIf="pessoaJuridicaRegisterForm.get('tradeName').hasError('required')">
+                                    Este campo é <strong>obrigatório.</strong>
+                                </mat-error>
                             </mat-form-field>
                         </p>
-                
-                        <p *ngIf="error" class="error">
-                            {{ error }}
+
+                        <p>
+                            <mat-form-field>
+                                <input type="text" matInput placeholder="Telefone" formControlName="phone">
+
+                                <mat-error *ngIf="pessoaJuridicaRegisterForm.get('phone').hasError('required')">
+                                    Este campo é <strong>obrigatório.</strong>
+                                </mat-error>
+                            </mat-form-field>
                         </p>
+
+                        <p>
+                            <mat-form-field appearance="fill">
+                                <mat-label>Categorias que seu negócio atende:</mat-label>
+                                <mat-select multiple formArrayName="subcategories">
+                                    <mat-option *ngFor="let subCategory of subCategories" [value]="subCategory.id">{{subCategory.description}}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </p>
+
+                        <hr>
+
+                        <div formGroupName="address">
+                            <p>
+                                <mat-form-field>
+                                    <input type="text" matInput placeholder="Endereço" value="address" formControlName="street">
+
+                                    <mat-error *ngIf="pessoaJuridicaRegisterForm.get('address').get('street').hasError('required')">
+                                        Este campo é <strong>obrigatório.</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </p>
+    
+                            <p>
+                                <mat-form-field>
+                                    <input type="text" matInput placeholder="CEP" value="address" formControlName="zipcode">
+
+                                    <mat-error *ngIf="pessoaJuridicaRegisterForm.get('address').get('zipcode').hasError('required')">
+                                        Este campo é <strong>obrigatório.</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </p>
+    
+                            <p>
+                                <mat-form-field>
+                                    <input type="text" matInput placeholder="Bairro" value="address" formControlName="neighborhood">
+
+                                    <mat-error *ngIf="pessoaJuridicaRegisterForm.get('address').get('neighborhood').hasError('required')">
+                                        Este campo é <strong>obrigatório.</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </p>
+                        </div>
+
+                        <div *ngIf="pessoaJuridicaCreated" class="success-message">
+                            <hr>
+
+                            <p>
+                                Seu usário foi criado com successo!
+                                Por favor verifique sua caixa de e-mail para obter sua senha e acessar o sistema.
+                            </p>
+                        </div>
                 
-                        <div class="button">
-                            <button type="submit" mat-button>Cadastrar</button>
+                        <div class="button" *ngIf="!pessoaJuridicaCreated">
+                            <button type="submit" mat-button [disabled]="!pessoaJuridicaRegisterForm.valid">Cadastrar</button>
                         </div>
                     </form>
                 </mat-tab>
