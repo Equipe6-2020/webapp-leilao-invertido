@@ -34,6 +34,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog'
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -44,6 +45,7 @@ import {PurchaseService} from './model/purchase/purchase.service';
 import {SubcategoryService} from './model/subcategory/subcategory.service';
 import {OfferService} from './model/offer/offer.service';
 import {UserService} from './model/user/user.service';
+import { LoadingDialogComponent } from './loading-dialog/loading-dialog.component';
 
 registerLocaleData(localePt);
 
@@ -57,7 +59,8 @@ registerLocaleData(localePt);
     HomeComponent,
     WishlistComponent,
     WishlistCreateComponent,
-    DetailComponent
+    DetailComponent,
+    LoadingDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +85,8 @@ registerLocaleData(localePt);
     NgbModule,
     HttpClientModule,
     MatProgressBarModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule
   ],
   providers: [
     NaturalPersonService,

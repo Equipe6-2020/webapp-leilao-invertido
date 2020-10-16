@@ -32,4 +32,9 @@ export class PurchaseService {
         return this.http.get<Purchase>(`${this.configService.getServerUrl()}/purchase/${id}`);
     }
 
+    accept(purchaseId: number, offerId: number) {
+        const options = { headers: this.userService.getAuthorizationHeader() };
+        return this.http.post<any>(`${this.configService.getServerUrl()}/purchase/${purchaseId}/acceptance/${offerId}`, null, options);
+    }
+
 }

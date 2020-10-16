@@ -9,6 +9,7 @@ export interface Purchase {
     description: string;
     date?: Date,
     subCategoryId: number;
+    subcategory?: string;
     quantity: number;
     status: number;
     subCategory?: SubCategory;

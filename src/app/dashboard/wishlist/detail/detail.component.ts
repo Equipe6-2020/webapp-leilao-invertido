@@ -5,6 +5,10 @@ import { PurchaseService } from 'src/app/model/purchase/purchase.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Offer } from 'src/app/model/offer/offer';
 import { OfferService } from 'src/app/model/offer/offer.service';
+import { LoadingDialogComponent } from 'src/app/loading-dialog/loading-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { UserService } from 'src/app/model/user/user.service';
+import { User } from 'src/app/model/user/user';
 
 @Component({
   selector: 'app-detail',
@@ -17,6 +21,7 @@ export class DetailComponent implements OnInit {
   private purchase: Purchase;
   loaded: boolean = false;
   creating: boolean = false
+  user: User
 
   form: FormGroup = new FormGroup({
     description: new FormControl('', [Validators.required]),
@@ -26,11 +31,14 @@ export class DetailComponent implements OnInit {
 
   constructor(private purchaseService: PurchaseService,
     private offerService: OfferService,
+    private dialog: MatDialog,
+    private userService: UserService,
     private actRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.id = this.actRoute.snapshot.params.id;
-    this.loadPurchase();    
+    this.loadPurchase();
+    this.user = this.userService.getUser();
   }
 
   loadPurchase() {
@@ -50,6 +58,15 @@ export class DetailComponent implements OnInit {
       console.log(response);
       this.creating = false
     });
+  }
+
+  acceptOffer(offerToAccept: Offer) {
+    console.log('accepting', offerToAccept);
+    const modal = this.dialog.open(LoadingDialogComponent, {minWidth: '300px', maxWidth: '300px', disableClose: true});
+    // this.purchaseService.accept(Number(this.id), offerToAccept.id).subscribe((response) => {
+    //   console.log(response);
+    //   modal.close();
+    // });
   }
 
   @Input() error: string | null;
