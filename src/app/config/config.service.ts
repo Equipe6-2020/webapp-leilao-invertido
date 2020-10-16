@@ -10,10 +10,16 @@ export class ConfigService {
   
     private SERVER_URL = "http://localhost:5001/api";
 
+    private SSO_SERVER_URL = "http://localhost:5002/api";
+
     constructor(private http: HttpClient) { }
 
     getServerUrl() {
         return this.SERVER_URL;
+    }
+
+    getSsoServerUrl() {
+        return this.SSO_SERVER_URL;
     }
 
 }

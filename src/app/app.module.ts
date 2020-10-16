@@ -43,6 +43,7 @@ import {BusinessService} from './model/business/business.service';
 import {PurchaseService} from './model/purchase/purchase.service';
 import {SubcategoryService} from './model/subcategory/subcategory.service';
 import {OfferService} from './model/offer/offer.service';
+import {UserService} from './model/user/user.service';
 
 registerLocaleData(localePt);
 
@@ -90,6 +91,7 @@ registerLocaleData(localePt);
     BusinessService,
     PurchaseService,
     OfferService,
+    UserService,
     {
       provide: LOCALE_ID,
       useValue: "pt-BR"

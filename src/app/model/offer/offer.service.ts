@@ -1,9 +1,10 @@
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ConfigService } from '../../config/config.service';
 import { Offer } from './offer';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
+import { UserService } from '../user/user.service';
 
 export interface GetAllPayload {
     pageIndex: number;
@@ -14,6 +15,7 @@ export interface GetAllPayload {
 export class OfferService {
 
     constructor(private configService: ConfigService,
+        private userService: UserService,
         private http: HttpClient) {
     }
 
@@ -22,7 +24,8 @@ export class OfferService {
     }
 
     create(business: Offer) {
-        return this.http.post<Offer[]>(`${this.configService.getServerUrl()}/offer`, business);
+        const options = { headers: this.userService.getAuthorizationHeader() };
+        return this.http.post<Offer[]>(`${this.configService.getServerUrl()}/offer`, business, options);
     }
 
 }

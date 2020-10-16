@@ -1,6 +1,10 @@
 export interface User {
 
-    id: number;
-    type: string;
+    email: string;
+    password: string;
+    accessToken?: string;
+
+    id?: number;
+    type?: string;
 
 }

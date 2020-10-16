@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Purchase } from 'src/app/model/purchase/purchase';
 import { PurchaseService } from 'src/app/model/purchase/purchase.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Offer } from 'src/app/model/offer/offer';
+import { OfferService } from 'src/app/model/offer/offer.service';
 
 @Component({
   selector: 'app-detail',
@@ -22,11 +24,15 @@ export class DetailComponent implements OnInit {
   });
 
   constructor(private purchaseService: PurchaseService,
+    private offerService: OfferService,
     private actRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.id = this.actRoute.snapshot.params.id;
+    this.loadPurchase();    
+  }
 
+  loadPurchase() {
     this.purchaseService.get(this.id).subscribe((data: Purchase) => {
       this.purchase = data;
       this.loaded = true;
@@ -35,7 +41,11 @@ export class DetailComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.form.value);
+    const offer: Offer = this.form.value;
+    offer.purchaseId = this.id;
+    this.offerService.create(offer).subscribe((response) => {
+      console.log(response);
+    });
   }
 
   @Input() error: string | null;
