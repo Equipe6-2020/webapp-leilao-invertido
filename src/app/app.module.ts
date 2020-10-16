@@ -2,6 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import {LOCALE_ID} from '@angular/core';
+import localePt from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,14 +32,19 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import {ConfigService} from './config/config.service';
 import {NaturalPersonService} from './model/natural-person/natural-person.service';
 import {BusinessService} from './model/business/business.service';
+import {PurchaseService} from './model/purchase/purchase.service';
 import {SubcategoryService} from './model/subcategory/subcategory.service';
+import {OfferService} from './model/offer/offer.service';
 
+registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
@@ -71,13 +79,21 @@ import {SubcategoryService} from './model/subcategory/subcategory.service';
     MatGridListModule,
     MatChipsModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    MatProgressBarModule,
+    MatCheckboxModule
   ],
   providers: [
     NaturalPersonService,
     ConfigService,
     SubcategoryService,
-    BusinessService
+    BusinessService,
+    PurchaseService,
+    OfferService,
+    {
+      provide: LOCALE_ID,
+      useValue: "pt-BR"
+    }
   ],
   bootstrap: [AppComponent]
 })

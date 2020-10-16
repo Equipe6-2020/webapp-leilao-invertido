@@ -103,6 +103,8 @@
                                 Por favor verifique sua caixa de e-mail para obter sua senha e acessar o sistema.
                             </p>
                         </div>
+
+                        <mat-progress-bar *ngIf="creating" mode="indeterminate"></mat-progress-bar>
                 
                         <div class="button" *ngIf="!pessoaFisicaCreated">
                             <button type="submit" mat-button [disabled]="!pessoaFisicaRegisterForm.valid">Cadastrar</button>
@@ -207,6 +209,8 @@
                                 Por favor verifique sua caixa de e-mail para obter sua senha e acessar o sistema.
                             </p>
                         </div>
+
+                        <mat-progress-bar *ngIf="creating" mode="indeterminate"></mat-progress-bar>
                 
                         <div class="button" *ngIf="!pessoaJuridicaCreated">
                             <button type="submit" mat-button [disabled]="!pessoaJuridicaRegisterForm.valid">Cadastrar</button>

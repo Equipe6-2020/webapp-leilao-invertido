@@ -1,5 +1,8 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Purchase } from 'src/app/model/purchase/purchase';
+import { PurchaseService } from 'src/app/model/purchase/purchase.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-detail',
@@ -8,21 +11,31 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class DetailComponent implements OnInit {
 
+  private id: number;
+  private purchase: Purchase;
+  loaded: boolean = false;
+
   form: FormGroup = new FormGroup({
-    description: new FormControl(''),
-    amount: new FormControl('')
+    description: new FormControl('', [Validators.required]),
+    price: new FormControl('', [Validators.required]),
+    inStock: new FormControl(false)
   });
 
-  constructor() { }
+  constructor(private purchaseService: PurchaseService,
+    private actRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.id = this.actRoute.snapshot.params.id;
 
+    this.purchaseService.get(this.id).subscribe((data: Purchase) => {
+      this.purchase = data;
+      this.loaded = true;
+      console.log(this.purchase);
+    });
   }
 
   submit() {
-    if (this.form.valid) {
-      this.submitEM.emit(this.form.value);
-    }
+    console.log(this.form.value);
   }
 
   @Input() error: string | null;

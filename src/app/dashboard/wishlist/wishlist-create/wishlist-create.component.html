@@ -7,12 +7,40 @@
                 <p>
                     <mat-form-field>
                         <input type="text" matInput placeholder="Título" formControlName="title">
+
+                        <mat-error *ngIf="form.get('title').hasError('required')">
+                            Este campo é <strong>obrigatório.</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </p>
+
+                <p>
+                    <mat-form-field>
+                        <input type="number" matInput placeholder="Preço médio" formControlName="averagePrice">
+
+                        <mat-error *ngIf="form.get('averagePrice').hasError('required')">
+                            Este campo é <strong>obrigatório.</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </p>
+
+                <p>
+                    <mat-form-field>
+                        <input type="number" matInput placeholder="Quantidade" formControlName="quantity">
+
+                        <mat-error *ngIf="form.get('averagePrice').hasError('required')">
+                            Este campo é <strong>obrigatório.</strong>
+                        </mat-error>
                     </mat-form-field>
                 </p>
         
                 <p>
                     <mat-form-field>
                         <textarea matInput placeholder="Descreve os itens que você gostaria de receber propostas" formControlName="description"></textarea>
+
+                        <mat-error *ngIf="form.get('description').hasError('required')">
+                            Este campo é <strong>obrigatório.</strong>
+                        </mat-error>
                     </mat-form-field>
                 </p>
 
@@ -27,12 +55,16 @@
                     </mat-form-field>
                 </p>
         
-                <p *ngIf="error" class="error">
-                    {{ error }}
-                </p>
+                <div *ngIf="wishlistCreated" class="success-message">
+                    <hr>
+
+                    <p>
+                        Sua lista foi criada com sucesso
+                    </p>
+                </div>
         
-                <div class="button">
-                    <button type="submit" mat-button>Criar</button>
+                <div class="button" *ngIf="!wishlistCreated">
+                    <button type="submit" mat-button [disabled]="!form.valid">Cadastrar</button>
                 </div>
         
             </form>

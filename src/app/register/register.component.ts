@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   pessoaFisicaCreated: boolean = false
   pessoaJuridicaCreated: boolean = false
   subCategories: SubcategoryService[]
+  creating: boolean = false
   
   pessoaFisicaRegisterForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -59,8 +60,10 @@ export class RegisterComponent implements OnInit {
   submitPessoaFisicaRegisterForm() {
     const naturalPerson = this.pessoaFisicaRegisterForm.value;
     console.log('Submitting', naturalPerson, JSON.stringify(naturalPerson));
+    this.creating = true;
     this.naturalPersonService.create(naturalPerson).subscribe((data: any) => {
       console.log(data);
+      this.creating = false;
       this.pessoaFisicaCreated = true;
     });
   }
@@ -68,8 +71,10 @@ export class RegisterComponent implements OnInit {
   submitPessoaJuridicaRegisterForm() {
     const business = this.pessoaJuridicaRegisterForm.value;
     console.log('Submitting', business, JSON.stringify(business));
+    this.creating = true;
     this.businessService.create(business).subscribe((data: any) => {
       console.log(data);
+      this.creating = false;
       this.pessoaJuridicaCreated = true;
     });
   }
