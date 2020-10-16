@@ -8,15 +8,15 @@
                 <mat-card-title>
                     <span>{{purchase?.title}}</span>
                 </mat-card-title>
-                <mat-card-subtitle>Banheiros - 1 x {{purchase?.averagePrice | currency:'BRL':true:'1.2-2'}}</mat-card-subtitle>
+                <mat-card-subtitle>Banheiros - {{purchase?.quantity}} x {{purchase?.averagePrice | currency:'BRL':true:'1.2-2'}}</mat-card-subtitle>
                 <mat-card-content>
                     <p>
                         {{ purchase?.description }}
                     </p>
                 </mat-card-content>
                 <mat-card-footer>
-                    <mat-chip-list aria-label="Fish selection">
-                        <mat-chip color="primary" selected>123Vendido para Fulano <mat-icon aria-hidden="false" aria-label="Example home icon">shopping_bag</mat-icon></mat-chip>
+                    <mat-chip-list aria-label="Fish selection" *ngIf="selectedOffer">
+                        <mat-chip color="primary" selected>Vendido para {{ selectedOffer.business.tradeName }} <mat-icon aria-hidden="false" aria-label="Example home icon">shopping_bag</mat-icon></mat-chip>
                     </mat-chip-list>
                 </mat-card-footer>
             </mat-card>
@@ -31,8 +31,12 @@
                                 <span>{{offer?.business?.tradeName}} fez uma oferta de {{offer?.price | currency:'BRL':true:'1.2-2'}}</span>
                             </div>
 
-                            <div class="col-md-2" *ngIf="user.typeUser == 'NaturalPerson'">  
+                            <div class="col-md-2" *ngIf="user.typeUser == 'NaturalPerson' && !isFinalized">  
                                 <button mat-raised-button color="primary" (click)="acceptOffer(offer)">Aceitar oferta</button>
+                            </div>
+
+                            <div class="col-md-2" *ngIf="offer.selected">
+                                <mat-icon aria-hidden="false" aria-label="Example home icon">done</mat-icon>
                             </div>
                         </div>
                     </mat-card-title>

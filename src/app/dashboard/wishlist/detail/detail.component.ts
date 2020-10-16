@@ -17,11 +17,13 @@ import { User } from 'src/app/model/user/user';
 })
 export class DetailComponent implements OnInit {
 
-  private id: number;
-  private purchase: Purchase;
-  loaded: boolean = false;
+  private id: number
+  private purchase: Purchase
+  loaded: boolean = false
   creating: boolean = false
   user: User
+  isFinalized: boolean = false
+  selectedOffer: Offer
 
   form: FormGroup = new FormGroup({
     description: new FormControl('', [Validators.required]),
@@ -43,10 +45,16 @@ export class DetailComponent implements OnInit {
 
   loadPurchase() {
     this.purchaseService.get(this.id).subscribe((data: Purchase) => {
+      this.checkOffers(data);
       this.purchase = data;
       this.loaded = true;
       console.log(this.purchase);
     });
+  }
+
+  checkOffers(purchase: Purchase) {
+    this.selectedOffer = purchase.offers?.filter(offer => offer.selected)[0];
+    this.isFinalized = this.selectedOffer != null || this.selectedOffer != undefined;
   }
 
   submit() {

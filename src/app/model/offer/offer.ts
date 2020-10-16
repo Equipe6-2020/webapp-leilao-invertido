@@ -8,6 +8,7 @@ export interface Offer {
     inStock: boolean;
     price: number;
     business?: Business;
+    selected: boolean;
     
 
 }
