@@ -78,12 +78,10 @@
                                 <mat-checkbox formControlName="inStock">Sua oferta é a pronta entrega?</mat-checkbox>
                             </p>
                     
-                            <p *ngIf="error" class="error">
-                                {{ error }}
-                            </p>
+                            <mat-progress-bar *ngIf="creating" mode="indeterminate"></mat-progress-bar>
                     
                             <div class="button">
-                                <button type="submit" mat-button>Enviar oferta</button>
+                                <button type="submit" [disabled]="!form.valid && !creating" mat-button>Enviar oferta</button>
                             </div>
                         </form>
                     </mat-card-content>

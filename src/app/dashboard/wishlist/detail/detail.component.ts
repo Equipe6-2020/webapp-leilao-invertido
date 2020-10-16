@@ -16,6 +16,7 @@ export class DetailComponent implements OnInit {
   private id: number;
   private purchase: Purchase;
   loaded: boolean = false;
+  creating: boolean = false
 
   form: FormGroup = new FormGroup({
     description: new FormControl('', [Validators.required]),
@@ -42,9 +43,12 @@ export class DetailComponent implements OnInit {
 
   submit() {
     const offer: Offer = this.form.value;
-    offer.purchaseId = this.id;
+    offer.purchaseId = Number(this.id);
+    console.log('creating', offer, JSON.stringify(offer));
+    this.creating = true
     this.offerService.create(offer).subscribe((response) => {
       console.log(response);
+      this.creating = false
     });
   }
 

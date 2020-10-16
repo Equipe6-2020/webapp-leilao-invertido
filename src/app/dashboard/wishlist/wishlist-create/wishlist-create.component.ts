@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { SubCategory } from 'src/app/model/subcategory/subcategory';
 import { SubcategoryService } from 'src/app/model/subcategory/subcategory.service';
 import { PurchaseService } from 'src/app/model/purchase/purchase.service';
+import { Purchase } from 'src/app/model/purchase/purchase';
 
 
 @Component({
@@ -14,6 +15,7 @@ export class WishlistCreateComponent implements OnInit {
 
   wishlistCreated: boolean = false;
   subCategories: SubCategory[] = [];
+  creating: boolean = false
 
   form: FormGroup = new FormGroup({
     title: new FormControl('', [Validators.required]),
@@ -38,11 +40,14 @@ export class WishlistCreateComponent implements OnInit {
 
   submit() {
     console.log(this.form.value);
-    const purchase = this.form.value;
+    const purchase: Purchase = this.form.value;
+    purchase.date = new Date();
     console.log('Submitting', purchase, JSON.stringify(purchase));
+    this.creating = true;
     this.purchaseService.create(purchase).subscribe((data: any) => {
       console.log(data);
       this.wishlistCreated = true;
+      this.creating = false;
     });
   }
 

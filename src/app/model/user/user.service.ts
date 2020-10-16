@@ -37,7 +37,7 @@ export class UserService {
     }
 
     public getAuthorizationHeader() {
-        return new HttpHeaders({'Authorization': `Bearer ${this.user.accessToken}` });
+        return new HttpHeaders({'Authorization': `Bearer ${this.getUser().accessToken}` });
     }
 
 }

@@ -62,9 +62,12 @@
                         Sua lista foi criada com sucesso
                     </p>
                 </div>
+
+
+                <mat-progress-bar *ngIf="creating" mode="indeterminate"></mat-progress-bar>
         
                 <div class="button" *ngIf="!wishlistCreated">
-                    <button type="submit" mat-button [disabled]="!form.valid">Cadastrar</button>
+                    <button type="submit" mat-button [disabled]="!creating && !form.valid">Cadastrar</button>
                 </div>
         
             </form>
