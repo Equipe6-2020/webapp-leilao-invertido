@@ -3,7 +3,12 @@
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </div>
     <div *ngIf="!loading">
-        <h1>Minhas listas de desejos</h1>
+        <h1>Listas de desejos</h1>
+
+        <ngb-alert *ngIf="purchases && purchases.length == 0" [dismissible]="false">
+            Nenhuma lista desejos criada ainda.
+        </ngb-alert>
+
         <mat-card *ngFor="let purchase of purchases">
             <mat-card-title>
                 <span>{{ purchase.title }}</span>
@@ -22,7 +27,7 @@
             </mat-card-footer>
         </mat-card>
 
-        <button mat-raised-button color="primary" [routerLink]="['/dashboard/wishlist/create']">Criar nova lista de desejos</button>
+        <button mat-raised-button *ngIf="user.typeUser == 'NaturalPerson'" color="primary" [routerLink]="['/dashboard/wishlist/create']">Criar nova lista de desejos</button>
     </div>
 
 </div>

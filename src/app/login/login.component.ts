@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
         this.wrongCredentials = true;
       } else {
         this.userService.setUser(data);
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/dashboard/wishlist']);
       }
     });
   }

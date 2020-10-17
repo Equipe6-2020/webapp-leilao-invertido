@@ -59,7 +59,7 @@
                 </mat-card>
             </div>
             
-            <div class="new-offer" *ngIf="user.typeUser != 'NaturalPerson'">
+            <div class="new-offer" *ngIf="user.typeUser != 'NaturalPerson' && !isFinalized">
                 <mat-card>
                     <mat-card-title>
                         Realizar uma nova oferta

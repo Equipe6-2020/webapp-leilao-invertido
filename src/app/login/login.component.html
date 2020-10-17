@@ -27,7 +27,7 @@
                 E-mail ou senha incorretos. Por favor, corrija-os e tente novamente.
             </div>
 
-            <mat-progress-bar *ngIf="loading && !form.valid" mode="indeterminate"></mat-progress-bar>
+            <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
     
             <div class="button">
                 <button type="submit" [disabled]="!form.valid" mat-button>Login</button>

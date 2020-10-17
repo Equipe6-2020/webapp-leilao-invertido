@@ -24,8 +24,8 @@
   <mat-sidenav-container>
     <mat-sidenav #sidenav>
         <mat-nav-list>
-            <a mat-list-item [routerLink]="['/dashboard/wishlist']">Minhas lista de desejos</a>
-            <a mat-list-item [routerLink]="['/dashboard/wishlist/create']">Criar lista de desejos</a>
+            <a mat-list-item [routerLink]="['/dashboard/wishlist']">Visualizar lista de desejos</a>
+            <a mat-list-item *ngIf="user.typeUser == 'NaturalPerson'" [routerLink]="['/dashboard/wishlist/create']">Criar lista de desejos</a>
             <a mat-list-item (click)="logout()">Sair</a>
         </mat-nav-list>
     </mat-sidenav>
