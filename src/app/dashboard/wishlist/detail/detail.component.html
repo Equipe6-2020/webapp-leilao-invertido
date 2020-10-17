@@ -8,7 +8,7 @@
                 <mat-card-title>
                     <span>{{purchase?.title}}</span>
                 </mat-card-title>
-                <mat-card-subtitle>Banheiros - {{purchase?.quantity}} x {{purchase?.averagePrice | currency:'BRL':true:'1.2-2'}}</mat-card-subtitle>
+                <mat-card-subtitle>{{ purchase?.subCategory?.description }} - {{purchase?.quantity}} x {{purchase?.averagePrice | currency:'BRL':true:'1.2-2'}}</mat-card-subtitle>
                 <mat-card-content>
                     <p>
                         {{ purchase?.description }}
@@ -23,6 +23,12 @@
         </div>
         <div class="col-md-9 list-offers">
             <div class="list-offers">
+                <h1>Listas de ofertas</h1>
+
+                <ngb-alert *ngIf="purchase?.offers && purchase?.offers.length == 0" [dismissible]="false">
+                    Nenhuma oferta criada ainda.
+                </ngb-alert>
+
                 <mat-card *ngFor="let offer of purchase?.offers">
                     <mat-card-title>
                         <div class="row">
@@ -65,7 +71,7 @@
                         Realizar uma nova oferta
                     </mat-card-title>
                     <mat-card-content>
-                        <form [formGroup]="form" (ngSubmit)="submit()">
+                        <form [formGroup]="form" #formDirective="ngForm" (ngSubmit)="submit(formDirective)">
                             <p>
                                 <mat-form-field>
                                     <textarea matInput placeholder="Descreva sua oferta. Ex: produto usado ou novo; com defeito ou não, etc." formControlName="description"></textarea>
@@ -92,6 +98,10 @@
                     
                             <mat-progress-bar *ngIf="creating" mode="indeterminate"></mat-progress-bar>
                     
+                            <ngb-alert *ngIf="error" [dismissible]="false">
+                                {{ error }}
+                            </ngb-alert>
+
                             <div class="button">
                                 <button type="submit" [disabled]="!form.valid && !creating" mat-button>Enviar oferta</button>
                             </div>

@@ -23,9 +23,9 @@ export class OfferService {
         return this.http.post<Offer[]>(`${this.configService.getServerUrl()}/offer/get-all`, getAllPayload);
     }
 
-    create(business: Offer) {
+    create(business: Offer): Observable<Offer> {
         const options = { headers: this.userService.getAuthorizationHeader() };
-        return this.http.post<Offer[]>(`${this.configService.getServerUrl()}/offer`, business, options);
+        return this.http.post<Offer>(`${this.configService.getServerUrl()}/offer`, business, options);
     }
 
 }

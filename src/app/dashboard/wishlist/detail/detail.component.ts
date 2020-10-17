@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormGroupDirective } from '@angular/forms';
 import { Purchase } from 'src/app/model/purchase/purchase';
 import { PurchaseService } from 'src/app/model/purchase/purchase.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -9,6 +9,9 @@ import { LoadingDialogComponent } from 'src/app/loading-dialog/loading-dialog.co
 import { MatDialog } from '@angular/material/dialog';
 import { UserService } from 'src/app/model/user/user.service';
 import { User } from 'src/app/model/user/user';
+import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-detail',
@@ -24,6 +27,7 @@ export class DetailComponent implements OnInit {
   user: User
   isFinalized: boolean = false
   selectedOffer: Offer
+  error: string;
 
   form: FormGroup = new FormGroup({
     description: new FormControl('', [Validators.required]),
@@ -57,28 +61,35 @@ export class DetailComponent implements OnInit {
     this.isFinalized = this.selectedOffer != null || this.selectedOffer != undefined;
   }
 
-  submit() {
+  submit(formDirective: FormGroupDirective) {
+    this.error = null;
     const offer: Offer = this.form.value;
     offer.purchaseId = Number(this.id);
     console.log('creating', offer, JSON.stringify(offer));
     this.creating = true
-    this.offerService.create(offer).subscribe((response) => {
+    const obs: Observable<Offer> = this.offerService.create(offer);
+      
+    obs.subscribe((response) => {
       console.log(response);
       this.creating = false
+      this.loadPurchase();
+      formDirective.resetForm();
+      this.form.reset();
+    }, error => {
+      console.log('error', error);
+      this.creating = false;
+      this.error = error.error;
     });
   }
 
   acceptOffer(offerToAccept: Offer) {
     console.log('accepting', offerToAccept);
     const modal = this.dialog.open(LoadingDialogComponent, {minWidth: '300px', maxWidth: '300px', disableClose: true});
-    // this.purchaseService.accept(Number(this.id), offerToAccept.id).subscribe((response) => {
-    //   console.log(response);
-    //   modal.close();
-    // });
+    this.purchaseService.accept(Number(this.id), offerToAccept.id).subscribe((response) => {
+      console.log(response);
+      modal.close();
+      this.loadPurchase();
+    });
   }
-
-  @Input() error: string | null;
-
-  @Output() submitEM = new EventEmitter();
 
 }

@@ -16,14 +16,14 @@
                     <mat-chip color="primary" selected>Vendido para {{purchase.offer.tradeName}}<mat-icon aria-hidden="false" aria-label="Example home icon">shopping_bag</mat-icon></mat-chip>
                 </mat-chip-list>
             </mat-card-title>
-            <mat-card-subtitle>{{ purchase.subcategory }} - {{purchase.quantity}} x {{purchase?.averagePrice | currency:'BRL':true:'1.2-2'}}</mat-card-subtitle>
+            <mat-card-subtitle>{{ purchase.subcategory }} - {{purchase.quantity}} x {{purchase.averagePrice | currency:'BRL':true:'1.2-2'}}</mat-card-subtitle>
             <mat-card-content>
                 <p>
                     {{purchase.description}}
                 </p>
             </mat-card-content>
             <mat-card-footer>
-                <button mat-button [routerLink]="['/dashboard/wishlist/', 1]">Visualizar</button>
+                <button mat-button [routerLink]="['/dashboard/wishlist/', purchase.id]">Visualizar</button>
             </mat-card-footer>
         </mat-card>
 
