@@ -13,7 +13,7 @@
             <mat-card-title>
                 <span>{{ purchase.title }}</span>
                 <mat-chip-list *ngIf="purchase.offer != null" aria-label="Fish selection">
-                    <mat-chip color="primary" selected>Vendido para {{purchase.offer.tradeName}}<mat-icon aria-hidden="false" aria-label="Example home icon">shopping_bag</mat-icon></mat-chip>
+                    <mat-chip color="primary" selected>Comprado de {{purchase.offer.tradeName}}<mat-icon aria-hidden="false" aria-label="Example home icon">shopping_bag</mat-icon></mat-chip>
                 </mat-chip-list>
             </mat-card-title>
             <mat-card-subtitle>{{ purchase.subcategory }} - {{purchase.quantity}} x {{purchase.averagePrice | currency:'BRL':true:'1.2-2'}}</mat-card-subtitle>

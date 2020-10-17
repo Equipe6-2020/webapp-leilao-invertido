@@ -2,113 +2,111 @@
     <div *ngIf="!loaded">
         <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </div>
-    <div class="row" *ngIf="loaded">
-        <div class="col-md-3 detail">
-            <mat-card>
+    <div *ngIf="loaded">
+        <mat-card>
+            <mat-card-title>
+                <span>{{purchase?.title}}</span>
+            </mat-card-title>
+            <mat-card-subtitle>{{ purchase?.subCategory?.description }} - {{purchase?.quantity}} x {{purchase?.averagePrice | currency:'BRL':true:'1.2-2'}}</mat-card-subtitle>
+            <mat-card-content>
+                <p>
+                    {{ purchase?.description }}
+                </p>
+            </mat-card-content>
+            <mat-card-footer>
+                <mat-chip-list aria-label="Fish selection" *ngIf="selectedOffer">
+                    <mat-chip color="primary" selected>Vendido<mat-icon aria-hidden="false" aria-label="Example home icon">shopping_bag</mat-icon></mat-chip>
+                </mat-chip-list>
+            </mat-card-footer>
+        </mat-card>
+    </div>
+    <div *ngIf="loaded">
+        <div class="list-offers">
+            <h1>Listas de ofertas</h1>
+
+            <ngb-alert *ngIf="purchase?.offers && purchase?.offers.length == 0" [dismissible]="false">
+                Nenhuma oferta criada ainda.
+            </ngb-alert>
+
+            <mat-card *ngFor="let offer of purchase?.offers">
                 <mat-card-title>
-                    <span>{{purchase?.title}}</span>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <mat-icon aria-hidden="false" aria-label="Example home icon">shopping_bag</mat-icon>
+                            <span>{{offer?.business?.tradeName}} fez uma oferta de {{offer?.price | currency:'BRL':true:'1.2-2'}}</span>
+                        </div>
+
+                        <div class="col-md-2" *ngIf="user.typeUser == 'NaturalPerson' && !isFinalized">  
+                            <button mat-raised-button color="primary" (click)="acceptOffer(offer)">Aceitar oferta</button>
+                        </div>
+
+                        <div class="col-md-2" *ngIf="offer.selected">
+                            <mat-icon aria-hidden="false" aria-label="Example home icon">done</mat-icon>
+                        </div>
+                    </div>
                 </mat-card-title>
-                <mat-card-subtitle>{{ purchase?.subCategory?.description }} - {{purchase?.quantity}} x {{purchase?.averagePrice | currency:'BRL':true:'1.2-2'}}</mat-card-subtitle>
                 <mat-card-content>
-                    <p>
-                        {{ purchase?.description }}
-                    </p>
+                        <p>{{ offer?.description }}</p>
                 </mat-card-content>
                 <mat-card-footer>
-                    <mat-chip-list aria-label="Fish selection" *ngIf="selectedOffer">
-                        <mat-chip color="primary" selected>Vendido para {{ selectedOffer.business.tradeName }} <mat-icon aria-hidden="false" aria-label="Example home icon">shopping_bag</mat-icon></mat-chip>
-                    </mat-chip-list>
+                    <div class="in-stock">
+                        <div *ngIf="offer?.inStock">
+                            <mat-icon aria-hidden="false" aria-label="Example home icon">mood</mat-icon>
+                            <span>Pronta entrega</span>
+                        </div>
+
+                        <div *ngIf="!offer?.inStock">
+                            <mat-icon aria-hidden="false" aria-label="Example home icon">mood_bad</mat-icon>
+                            <span>Não tem a pronta entrega</span>
+                        </div>
+                    </div>
                 </mat-card-footer>
             </mat-card>
         </div>
-        <div class="col-md-9 list-offers">
-            <div class="list-offers">
-                <h1>Listas de ofertas</h1>
-
-                <ngb-alert *ngIf="purchase?.offers && purchase?.offers.length == 0" [dismissible]="false">
-                    Nenhuma oferta criada ainda.
-                </ngb-alert>
-
-                <mat-card *ngFor="let offer of purchase?.offers">
-                    <mat-card-title>
-                        <div class="row">
-                            <div class="col-md-10">
-                                <mat-icon aria-hidden="false" aria-label="Example home icon">shopping_bag</mat-icon>
-                                <span>{{offer?.business?.tradeName}} fez uma oferta de {{offer?.price | currency:'BRL':true:'1.2-2'}}</span>
-                            </div>
-
-                            <div class="col-md-2" *ngIf="user.typeUser == 'NaturalPerson' && !isFinalized">  
-                                <button mat-raised-button color="primary" (click)="acceptOffer(offer)">Aceitar oferta</button>
-                            </div>
-
-                            <div class="col-md-2" *ngIf="offer.selected">
-                                <mat-icon aria-hidden="false" aria-label="Example home icon">done</mat-icon>
-                            </div>
-                        </div>
-                    </mat-card-title>
-                    <mat-card-content>
-                         <p>{{ offer?.description }}</p>
-                    </mat-card-content>
-                    <mat-card-footer>
-                        <div class="in-stock">
-                            <div *ngIf="offer?.inStock">
-                                <mat-icon aria-hidden="false" aria-label="Example home icon">mood</mat-icon>
-                                <span>Pronta entrega</span>
-                            </div>
-
-                            <div *ngIf="!offer?.inStock">
-                                <mat-icon aria-hidden="false" aria-label="Example home icon">mood_bad</mat-icon>
-                                <span>Não tem a pronta entrega</span>
-                            </div>
-                        </div>
-                    </mat-card-footer>
-                </mat-card>
-            </div>
             
-            <div class="new-offer" *ngIf="user.typeUser != 'NaturalPerson' && !isFinalized">
-                <mat-card>
-                    <mat-card-title>
-                        Realizar uma nova oferta
-                    </mat-card-title>
-                    <mat-card-content>
-                        <form [formGroup]="form" #formDirective="ngForm" (ngSubmit)="submit(formDirective)">
-                            <p>
-                                <mat-form-field>
-                                    <textarea matInput placeholder="Descreva sua oferta. Ex: produto usado ou novo; com defeito ou não, etc." formControlName="description"></textarea>
+        <div class="new-offer" *ngIf="user.typeUser != 'NaturalPerson' && !isFinalized">
+            <mat-card>
+                <mat-card-title>
+                    Realizar uma nova oferta
+                </mat-card-title>
+                <mat-card-content>
+                    <form [formGroup]="form" #formDirective="ngForm" (ngSubmit)="submit(formDirective)">
+                        <p>
+                            <mat-form-field>
+                                <textarea matInput placeholder="Descreva sua oferta. Ex: produto usado ou novo; com defeito ou não, etc." formControlName="description"></textarea>
 
-                                    <mat-error *ngIf="form.get('description').hasError('required')">
-                                        Este campo é <strong>obrigatório.</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                            </p>
+                                <mat-error *ngIf="form.get('description').hasError('required')">
+                                    Este campo é <strong>obrigatório.</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </p>
 
-                            <p>
-                                <mat-form-field>
-                                    <input matInput type="number" placeholder="Valor em R$" formControlName="price" />
+                        <p>
+                            <mat-form-field>
+                                <input matInput type="number" placeholder="Valor em R$" formControlName="price" />
 
-                                    <mat-error *ngIf="form.get('price').hasError('required')">
-                                        Este campo é <strong>obrigatório.</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                            </p>
+                                <mat-error *ngIf="form.get('price').hasError('required')">
+                                    Este campo é <strong>obrigatório.</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </p>
 
-                            <p>
-                                <mat-checkbox formControlName="inStock">Sua oferta é a pronta entrega?</mat-checkbox>
-                            </p>
-                    
-                            <mat-progress-bar *ngIf="creating" mode="indeterminate"></mat-progress-bar>
-                    
-                            <ngb-alert *ngIf="error" [dismissible]="false">
-                                {{ error }}
-                            </ngb-alert>
+                        <p>
+                            <mat-checkbox formControlName="inStock">Sua oferta é a pronta entrega?</mat-checkbox>
+                        </p>
+                
+                        <mat-progress-bar *ngIf="creating" mode="indeterminate"></mat-progress-bar>
+                
+                        <ngb-alert *ngIf="error" [dismissible]="false">
+                            {{ error }}
+                        </ngb-alert>
 
-                            <div class="button">
-                                <button type="submit" [disabled]="!form.valid && !creating" mat-button>Enviar oferta</button>
-                            </div>
-                        </form>
-                    </mat-card-content>
-                </mat-card>
-            </div>
+                        <div class="button">
+                            <button type="submit" [disabled]="!form.valid && !creating" mat-button>Enviar oferta</button>
+                        </div>
+                    </form>
+                </mat-card-content>
+            </mat-card>
         </div>
     </div>
 </div>
